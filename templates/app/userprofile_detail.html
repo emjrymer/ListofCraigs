@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div>Username:{{ object.user }}</div>
+    {% for city in object.user.city_set.all %}
+        <div>{{ city.city }}</div>
+    {% endfor %}
+    <a href="#">Update</a>
+{% endblock %}

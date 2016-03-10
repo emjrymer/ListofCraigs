@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% for city in object_list %}
+        <div><a href="{% url 'category_by_city_detail_view' city.id %}">{{ city }}</a></div>
+
+    {% endfor %}
+
+{% endblock %}
