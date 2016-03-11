@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
+    <h2>Search in:  </h2>
     {% for city in object_list %}
         <div><a href="{% url 'category_by_city_detail_view' city.id %}">{{ city }}</a></div>
 

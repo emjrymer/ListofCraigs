@@ -3,7 +3,7 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from app.views import MainView, CreateUserView, MyAccountView, CityCreateView, CityListView, PostingDetailView, \
-    CategoryByCityDetailView
+    CategoryByCityDetailView, SubCategoryView, PostView, ContactSellerView, PostCreateView, SuccessPostView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -16,7 +16,10 @@ urlpatterns = [
     url(r'^categories_by_city/(?P<pk>\d+)/$', CategoryByCityDetailView.as_view(), name="category_by_city_detail_view"),
     url(r'^posting_by_city/(?P<pk>\d+)/$', PostingDetailView.as_view(), name='posting_detail_view'),
     url(r'^create_city/', CityCreateView.as_view(), name='city_create_view'),
-    url(r'^media/(?P<path>.*)', "django.views.static.serve", {"document_root": settings.MEDIA_ROOT})
-    #url(r'^subcategory/(?P<pk>\d+)', SubCategoryView.as_view(), name='subcategory_view')
-    #url(r'^post_create/$', PostCreateView.as_view(), name='post_create_view')
+    url(r'^media/(?P<path>.*)', "django.views.static.serve", {"document_root": settings.MEDIA_ROOT}),
+    url(r'^subcategory/(?P<pk>\d+)/$', SubCategoryView.as_view(), name='subcategory_view'),
+    url(r'^post_by_sub/(?P<pk>\d+)/$', PostView.as_view(), name="post_view"),
+    #url(r'^contact_seller/(?P<pk>\d+)/$', ContactSellerView.as_view(), name="contact_seller"),
+    url(r'^post_create/(?P<pk>\d+)/$', PostCreateView.as_view(), name='post_create_view'),
+    url(r'^successfully_posted/', SuccessPostView.as_view(), name='success')
 ]

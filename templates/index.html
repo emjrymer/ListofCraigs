@@ -1,11 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<br>
+<br><br><br>
+    <a href="{% url 'city_list_view' %}">Search by city</a>
+    <h1>Recent Listings</h1>
     {% for cat in categories %}
-        <div>{{ cat }}</div>
+        <h1>{{ cat }}</h1>
         {% for sub in cat.subcategory_set.all %}
-            <h2>{{ sub }}</h2>
+            <h3>{{ sub }}</h3>
+            {% for post in sub.post_set.all %}
+            <h4>{{ post }}</h4>
+            {% endfor %}
         {% endfor %}
     {% endfor %}
 {% endblock %}

@@ -4,10 +4,10 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
 # Create your views here.
-from django.views.generic import TemplateView, CreateView, DetailView, ListView
+from django.views.generic import TemplateView, CreateView, DetailView, ListView, UpdateView
 
 from app.forms import NewUserCreationForm
-from app.models import Category, UserProfile, City, Post
+from app.models import Category, UserProfile, City, Post, SubCategory
 
 
 class MainView(TemplateView):
@@ -62,21 +62,47 @@ class CategoryByCityDetailView(ListView):
         return Category.objects.filter(city=self.kwargs.get('pk'))
 
 
-'''class PostCreateView(CreateView):
+class UserUpdateView(UpdateView):
+    model = UserProfile
+
+
+class SubCategoryView(ListView):
+
+    def get_queryset(self):
+        return SubCategory.objects.filter(category=self.kwargs.get('pk'))
+
+
+class PostView(ListView):
+
+    def get_queryset(self):
+        return Post.objects.filter(subcategory=self.kwargs.get('pk'))
+
+
+class ContactSellerView(ListView):
+    pass
+
+
+class PostCreateView(CreateView):
     model = Post
     fields = ('title', 'description', 'subcategory')
 
     @property
     def subcategory(self):
-        return Subcategory.objects.get(pk=self.kwargs.get('subcat_id')
+        return SubCategory.objects.get(pk=self.kwargs.get('pk'))
 
-    def get_context_data()
-        context =
-        context['sub
+    def get_context_data(self, **kwargs):
+        context = super(PostCreateView, self).get_context_data(**kwargs)
+        context['subcategory'] = self.subcategory
         return context
-class CategoryListView(ListView):
-    model = Category
+
+    def form_valid(self, form):
+        post_object = form.save(commit=False)
+        post_object.user = self.request.user
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('success')
 
 
-class SubCategoryView(DetailView):
-    pass'''
+class SuccessPostView(TemplateView):
+    template_name = 'success.html'

@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {{ object.category }} / {{ object }}
+    <h2>Choose a SubCategory:</h2>
+    <a href="{% url 'post_create_view' user.id %}">Create Post</a>
+    {% for item in object_list %}
+        <div><a href="{% url 'post_view' item.id %}">{{ item }}</a></div>
+    {% endfor %}
+{% endblock %}
