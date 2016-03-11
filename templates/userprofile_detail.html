@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div>Username:{{ request.user }}</div>
+    <div>Cities:</div>
+    {% for city in object.user.city_set.all %}
+        <div>{{ city }}</div>
+    {% endfor %}
+    <div>Recent Posts:</div>
+    {% for post in posts %}
+        <div>{{ post }}</div>
+    {% endfor %}
+{% endblock %}

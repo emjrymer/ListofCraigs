@@ -27,8 +27,14 @@ class CreateUserView(CreateView):
         return reverse("login_view")
 
 
-class MyAccountView(DetailView):
+class MyAccountView(TemplateView):
     model = UserProfile
+    template_name = 'userprofile_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(MyAccountView, self).get_context_data(**kwargs)
+        context['posts'] = Post.objects.filter(user=self.request.user.id)
+        return context
 
 
 class CityListView(ListView):
@@ -46,13 +52,6 @@ class CityCreateView(CreateView):
 
     def get_success_url(self):
         return reverse("main_view")
-
-
-class PostingDetailView(DetailView):
-    model = Post
-
-    def get_queryset(self):
-        return Post.objects.filter(subcategory__category__city=City.objects.filter(user=self.request.user))
 
 
 class CategoryByCityDetailView(ListView):

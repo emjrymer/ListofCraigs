@@ -2,8 +2,7 @@ from django.conf import settings
 from django.conf.urls import url
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
-from app.views import MainView, CreateUserView, MyAccountView, CityCreateView, CityListView, PostingDetailView, \
-    CategoryByCityDetailView, SubCategoryView, PostView, ContactSellerView, PostCreateView, SuccessPostView
+from app.views import MainView, CreateUserView, MyAccountView, CityCreateView, CityListView, CategoryByCityDetailView, SubCategoryView, PostView, ContactSellerView, PostCreateView, SuccessPostView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -14,7 +13,6 @@ urlpatterns = [
     url(r'^my_account/(?P<pk>\d+)/$', MyAccountView.as_view(), name='my_account_view'),
     url(r'^which_city/$', CityListView.as_view(), name="city_list_view"),
     url(r'^categories_by_city/(?P<pk>\d+)/$', CategoryByCityDetailView.as_view(), name="category_by_city_detail_view"),
-    url(r'^posting_by_city/(?P<pk>\d+)/$', PostingDetailView.as_view(), name='posting_detail_view'),
     url(r'^create_city/', CityCreateView.as_view(), name='city_create_view'),
     url(r'^media/(?P<path>.*)', "django.views.static.serve", {"document_root": settings.MEDIA_ROOT}),
     url(r'^subcategory/(?P<pk>\d+)/$', SubCategoryView.as_view(), name='subcategory_view'),
