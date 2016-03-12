@@ -18,6 +18,6 @@ urlpatterns = [
     url(r'^subcategory/(?P<pk>\d+)/$', SubCategoryView.as_view(), name='subcategory_view'),
     url(r'^post_by_sub/(?P<pk>\d+)/$', PostView.as_view(), name="post_view"),
     #url(r'^contact_seller/(?P<pk>\d+)/$', ContactSellerView.as_view(), name="contact_seller"),
-    url(r'^post_create/(?P<pk>\d+)/$', PostCreateView.as_view(), name='post_create_view'),
+    url(r'^post_create/(?P<sub_id>\d+)/$', PostCreateView.as_view(), name='post_create_view'),
     url(r'^successfully_posted/', SuccessPostView.as_view(), name='success')
 ]

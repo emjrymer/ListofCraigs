@@ -1,0 +1,25 @@
+.content {
+    display: inline-block;
+}
+
+.postcontainer ul li {
+    display: inline;
+}
+
+.postcontainer ul
+{
+margin: 0;
+padding: 0;
+list-style-type: none;
+text-align: center;
+}
+
+.postcontainer ul li a
+    {
+text-decoration: none;
+padding: .2em 1em;
+}
+
+.container{
+    list-style: none;
+}
