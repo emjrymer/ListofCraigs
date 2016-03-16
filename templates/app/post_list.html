@@ -3,7 +3,7 @@
 {% block content %}
     <h2>Postings</h2>
     <h5>Click item to contact seller</h5>
-    {% for item in object_list %}
-        <div><a href="#">{{ item }}</a> - {{ item.description }}</div>
-    {% endfor %}
+        {% for item in object_list %}
+            <div><a href="#">{{ item }}</a> - {{ item.description }}</div>
+        {% endfor %}
 {% endblock %}

@@ -68,7 +68,7 @@ class UserUpdateView(UpdateView):
 class SubCategoryView(ListView):
 
     def get_queryset(self):
-        return SubCategory.objects.filter(category=self.kwargs.get('pk'))
+        return SubCategory.objects.filter(category=self.kwargs['pk'])
 
 
 class PostView(ListView):
@@ -83,24 +83,20 @@ class ContactSellerView(ListView):
 
 class PostCreateView(CreateView):
     model = Post
-    fields = ('title', 'description', 'subcategory')
-
-    @property
-    def subcategory(self):
-        return SubCategory.objects.get(pk=self.kwargs.get('pk'))
-
-    def get_context_data(self, **kwargs):
-        context = super(PostCreateView, self).get_context_data(**kwargs)
-        context['subcategory'] = self.subcategory
-        return context
+    fields = ('title', 'description', 'subcategory', 'photo')
 
     def form_valid(self, form):
         post_object = form.save(commit=False)
         post_object.user = self.request.user
+        post_object.subcategory = SubCategory.objects.get(pk=self.kwargs.get("sub_id"))
         return super().form_valid(form)
 
     def get_success_url(self):
         return reverse('success')
+
+
+class PostDetailView(DetailView):
+    model = Post
 
 
 class SuccessPostView(TemplateView):

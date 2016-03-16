@@ -4,22 +4,17 @@
 {% block content %}
 <br><br><br>
     <div class="jumbotron">
-        <p><a class="btn btn-primary btn-lg" href="{% url 'city_list_view' %}" role="button">Search by City</a></p>
+        <p><a class="btn btn-info btn-lg btn-block" href="{% url 'city_list_view' %}" role="button">Search by City</a></p>
         <h1>Recent Listings</h1>
     <div class="postcontainer">
         <div class="list-group">
             <a href="#" class="list-group-item active">
             {% for cat in categories %}
                 <li><h3 h4 class="list-group-item-heading">Category: {{ cat }}</h3>
+                    <li>Subcategories: </li>
                     <ul>
                         {% for sub in cat.subcategory_set.all %}
-                            <li><h4 class="list-group-item-text">{{ sub }}</h4>
-                                <ul>
-                                    {% for post in sub.post_set.all %}
-                                        <li><p class="list-group-item-text">{{ post }}</p></li>
-                                    {% endfor %}
-                                </ul>
-                            </li>
+                            <li><h4 class="list-group-item-text">{{ sub }}</h4></li>
                         {% endfor %}
                     </ul>
                 </li>

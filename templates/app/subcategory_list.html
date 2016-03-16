@@ -1,10 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    {{ object.category }} / {{ object }}
     <h2>Choose a SubCategory:</h2>
-    <a href="{% url 'post_create_view' user.sub_id %}">Create Post</a>
     {% for item in object_list %}
-        <div><a href="{% url 'post_view' item.sub_id %}">{{ item }}</a></div>
+        <div class="panel panel-default">
+        <div class="panel-body"><a href="{% url 'post_view' item.id %}">{{ item }}</a></div></div>
     {% endfor %}
 {% endblock %}

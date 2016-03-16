@@ -52,6 +52,7 @@ class Post(models.Model):
     description = models.TextField()
     time_created = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey("auth.User")
+    photo = models.ImageField(upload_to='uploads', null=True, blank=True)
 
     def __str__(self):
         return self.title

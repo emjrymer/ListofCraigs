@@ -13,6 +13,7 @@
 <div class="container">
 <ul class="nav nav-pills">
     {% if request.user.is_authenticated %}
+    <li role="presentation"><a href="{% url 'main_view' %}">Home</a></li>
     <li role="presentation"><a href="{% url 'my_account_view' user.id %}">My Account</a></li>
     <li role="presentation"><a href="{% url 'city_list_view' %}">Search by City?</a></li>
     <li role="presentation"><a href="{% url 'logout_view' %}">logout, {{ request.user }}</a></li>

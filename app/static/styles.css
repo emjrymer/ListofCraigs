@@ -4,6 +4,7 @@
 
 .postcontainer ul li {
     display: inline;
+    text-align: center;
 }
 
 .postcontainer ul
@@ -18,8 +19,18 @@ text-align: center;
     {
 text-decoration: none;
 padding: .2em 1em;
+text-align: center;
+
 }
 
 .container{
     list-style: none;
+}
+
+.jumbotron{
+    width: 715px;
+    margin: auto;
+}
+body {
+    background-color: #c4dce8;
 }

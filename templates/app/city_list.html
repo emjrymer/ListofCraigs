@@ -1,12 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
     <h2>Search in:  </h2>
-    <div class="panel panel-default">
         {% for city in object_list %}
-
-            <div class="panel-body"><a href="{% url 'category_by_city_detail_view' city.id %}">{{ city }}</a></div>
+            <div class="panel panel-default">
+            <div class="panel-body"><a href="{% url 'category_by_city_detail_view' city.id %}">{{ city }}</a></div></div>
         {% endfor %}
-    </div>
 {% endblock %}
