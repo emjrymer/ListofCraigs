@@ -5,12 +5,6 @@
     <br>
     <div class="content"><h5>Username: </h5>{{ request.user }}</div>
     <div class="content">
-        <h5>Cities:</h5>
-    {% for city in object.user.city_set.all %}
-        <div>{{ city }}</div>
-    {% endfor %}
-    </div>
-    <div class="content">
         <h5>Recent Posts:</h5>
     {% for post in posts %}
         <div>{{ post }}</div>

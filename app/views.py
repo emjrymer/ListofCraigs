@@ -1,13 +1,14 @@
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from rest_framework import generics
+
 
 # Create your views here.
 from django.views.generic import TemplateView, CreateView, DetailView, ListView, UpdateView
 
-from app.forms import NewUserCreationForm
 from app.models import Category, UserProfile, City, Post, SubCategory
+from app.serializers import CategorySerializer, SubCategorySerializer, PostSerializer
 
 
 class MainView(TemplateView):
@@ -21,7 +22,7 @@ class MainView(TemplateView):
 
 class CreateUserView(CreateView):
     model = User
-    form_class = NewUserCreationForm
+    form_class = UserCreationForm
 
     def get_success_url(self):
         return reverse("login_view")
@@ -77,10 +78,6 @@ class PostView(ListView):
         return Post.objects.filter(subcategory=self.kwargs.get('pk'))
 
 
-class ContactSellerView(ListView):
-    pass
-
-
 class PostCreateView(CreateView):
     model = Post
     fields = ('title', 'description', 'subcategory', 'photo')
@@ -101,3 +98,45 @@ class PostDetailView(DetailView):
 
 class SuccessPostView(TemplateView):
     template_name = 'success.html'
+
+
+class CategoryListCreateAPIView(generics.ListCreateAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+
+
+class CategoryRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+
+
+class SubCategoryListCreateAPIView(generics.ListCreateAPIView):
+    queryset = SubCategory.objects.all()
+    serializer_class = SubCategorySerializer
+
+
+class SubCategoryRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = SubCategory.objects.all()
+    serializer_class = SubCategorySerializer
+
+
+class PostBySubListCreateAPIView(generics.ListCreateAPIView):
+    serializer_class = PostSerializer
+
+    def get_queryset(self):
+        return Post.objects.filter(subcategory=self.kwargs['pk'])
+
+
+class PostByCatListCreateAPIView(generics.ListCreateAPIView):
+    serializer_class = PostSerializer
+
+    def get_queryset(self):
+        return Post.objects.filter(subcategory__category=self.kwargs['pk'])
+
+
+class PostRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = PostSerializer
+
+    def queryset(self):
+        user = self.request.user
+        return Post.objects.filter(pk=user.id)
