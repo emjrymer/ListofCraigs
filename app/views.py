@@ -6,6 +6,8 @@ from rest_framework import generics
 
 # Create your views here.
 from django.views.generic import TemplateView, CreateView, DetailView, ListView, UpdateView
+from rest_framework.authentication import BasicAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 from app.models import Category, UserProfile, City, Post, SubCategory
 from app.serializers import CategorySerializer, SubCategorySerializer, PostSerializer
@@ -136,7 +138,8 @@ class PostByCatListCreateAPIView(generics.ListCreateAPIView):
 
 class PostRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = PostSerializer
+    authentication_classes = (BasicAuthentication,)
+    permission_classes = (IsAuthenticated, )
 
     def queryset(self):
-        user = self.request.user
-        return Post.objects.filter(pk=user.id)
+        return Post.objects.filter(user_id=self.request.user)
